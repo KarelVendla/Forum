@@ -12,5 +12,14 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.app');
 });
+
+Route::get('/threads/{id}', function () {
+    return view('layouts.app');
+});
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

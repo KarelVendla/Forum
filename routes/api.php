@@ -16,3 +16,11 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+//Get all threads
+Route::get('threads','ThreadController@index');
+
+
+//Get single thread
+Route::get('threads/{id}', 'ThreadController@show');
