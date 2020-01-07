@@ -2,7 +2,6 @@ export default {
     state: {
         threads: [],
         thread: {},
-        toggleThread: false
     },
     mutations: {
         SET_THREADS (state, payload) {
@@ -10,11 +9,6 @@ export default {
         },
         SET_THREAD(state, payload) {
             state.thread = payload;
-        },
-        TOGGLE_THREAD (state) {
-            console.log(state.toggleThread);
-            state.toggleThread = !state.toggleThread;
-            console.log(state.toggleThread);
         },
     },
     getters: {
@@ -44,6 +38,6 @@ export default {
                     console.log(error);
                     console.log('THREAD: GET FAILED');
                 });
-        }
-    }
+        },
+    },
 }

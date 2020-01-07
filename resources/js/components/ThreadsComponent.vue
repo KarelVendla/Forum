@@ -26,7 +26,6 @@
 <script>
     export default {
         mounted() {
-            console.log(this.$route);
             this.fetchThreads();
         },
         methods: {
@@ -39,6 +38,6 @@
         },
         computed: {
             getThreads () { return this.$store.state.threads; } 
-        }
+        },
     }
 </script>

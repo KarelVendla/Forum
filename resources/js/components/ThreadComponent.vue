@@ -24,12 +24,10 @@
 <script>
     export default {
         mounted() {
-            console.log(this.$route);
             this.GetThread();
         },
         methods: {
             GetThread () {
-                console.log(this.$route.params.id);
                 this.$store.dispatch('GET_THREAD', this.$route.params.id);
             } 
         },

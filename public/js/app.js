@@ -1850,16 +1850,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -1976,12 +1966,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    console.log(this.$route);
     this.GetThread();
   },
   methods: {
     GetThread: function GetThread() {
-      console.log(this.$route.params.id);
       this.$store.dispatch('GET_THREAD', this.$route.params.id);
     }
   },
@@ -2030,7 +2018,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    console.log(this.$route);
     this.fetchThreads();
   },
   methods: {
@@ -37447,16 +37434,7 @@ var render = function() {
     [
       _c("navbarcomponent"),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "container" },
-        [
-          _c("h1", [_vm._v("test" + _vm._s(_vm.getToggle))]),
-          _vm._v(" "),
-          _c("router-view")
-        ],
-        1
-      )
+      _c("div", { staticClass: "container" }, [_c("router-view")], 1)
     ],
     1
   )
@@ -54278,8 +54256,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
     threads: [],
-    thread: {},
-    toggleThread: false
+    thread: {}
   },
   mutations: {
     SET_THREADS: function SET_THREADS(state, payload) {
@@ -54287,11 +54264,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     SET_THREAD: function SET_THREAD(state, payload) {
       state.thread = payload;
-    },
-    TOGGLE_THREAD: function TOGGLE_THREAD(state) {
-      console.log(state.toggleThread);
-      state.toggleThread = !state.toggleThread;
-      console.log(state.toggleThread);
     }
   },
   getters: {
