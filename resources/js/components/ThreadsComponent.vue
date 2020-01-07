@@ -32,9 +32,6 @@
             fetchThreads () {
                 return this.$store.dispatch('GET_THREADS');
             },
-            toggleThread () {
-                return this.$store.commit('TOGGLE_THREAD');
-            }
         },
         computed: {
             getThreads () { return this.$store.state.threads; } 

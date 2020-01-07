@@ -2,6 +2,7 @@ export default {
     state: {
         threads: [],
         thread: {},
+        replies: [],
     },
     mutations: {
         SET_THREADS (state, payload) {
@@ -10,11 +11,11 @@ export default {
         SET_THREAD(state, payload) {
             state.thread = payload;
         },
+        SET_REPLIES (state, payload) {
+            state.replies = payload;
+        },
     },
     getters: {
-        GET_THREADS (state) {
-            return state.threads;
-        }
     },
     actions: {
         GET_THREADS ({commit}) {
@@ -39,5 +40,16 @@ export default {
                     console.log('THREAD: GET FAILED');
                 });
         },
+        GET_REPLIES ({commit}, thread_id) {
+            return axios.get('/api/replies/' + thread_id)
+                .then(response => {
+                    commit('SET_REPLIES', response.data.data);
+                    console.log('REPLIES: GET SUCCESSFUL');
+                })
+                .catch(error => {
+                    console.log(error);
+                    console.log('REPLIES: GET FAILED');
+                });
+            },
     },
 }

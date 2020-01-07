@@ -12,7 +12,7 @@ Vue.use(Vuex);
 Vue.use(VueRouter);
 
 Vue.component('main-app', require('./components/IndexComponent.vue').default);
-Vue.component('reply', require('./components/ReplyComponent.vue'));
+Vue.component('replies', require('./components/RepliesComponent.vue'));
 
 const app = new Vue({
     el: '#app',
