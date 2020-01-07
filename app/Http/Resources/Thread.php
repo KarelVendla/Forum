@@ -18,7 +18,9 @@ class Thread extends JsonResource
             'id' => $this->id,
             'user_id' => $this->user_id,
             'title' => $this->title,
-            'body' => $this->body
+            'body' => $this->body,
+            'created_at' => $this->created_at->diffForHumans(),
+            'owner' => $this->owner->name
         ];
     }
 }

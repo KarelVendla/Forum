@@ -12,19 +12,28 @@
                             </div>  
                         </article>
                 </div>
+                <div class="card-footer">
+                    {{Thread.created_at}}
+                    <div>
+                        By: <a href="#">{{Thread.owner}}</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <repliescomponent/>
+    <postreplycomponent/>
 </div>
 </template>
 
 <script>
 import repliescomponent from './RepliesComponent'
+import postreplycomponent from './PostReplyComponent'
 
     export default {
         components: {
-            repliescomponent
+            repliescomponent,
+            postreplycomponent
         },
         mounted() {
             this.GetThread();

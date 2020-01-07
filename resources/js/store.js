@@ -1,9 +1,14 @@
 export default {
     state: {
+        user: {
+            name: '',
+            email: '',
+            password: '',
+        },
         threads: [],
         thread: {},
-        replies: [],
-    },
+        replies: [],       
+    },  
     mutations: {
         SET_THREADS (state, payload) {
             state.threads = payload;
