@@ -1973,12 +1973,6 @@ __webpack_require__.r(__webpack_exports__);
     threadscomponent: _ThreadsComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
     navbarcomponent: _NavbarComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     threadcomponent: _ThreadComponent__WEBPACK_IMPORTED_MODULE_2__["default"]
-  },
-  mounted: function mounted() {},
-  computed: {
-    getToggle: function getToggle() {
-      return this.$store.state.toggleThread;
-    }
   }
 });
 
@@ -2012,8 +2006,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {}
+  computed: {
+    LoggedIn: function LoggedIn() {
+      return this.$store.state.loggedIn;
+    },
+    userName: function userName() {
+      return this.$store.state.user.name;
+    }
+  }
 });
 
 /***/ }),
@@ -2047,10 +2056,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      reply: ''
+    };
+  },
   mounted: function mounted() {},
-  methods: {},
-  computed: {}
+  methods: {
+    PostReply: function PostReply() {
+      this.$store.dispatch('POST_REPLY', this.reply);
+    }
+  }
 });
 
 /***/ }),
@@ -2141,6 +2166,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2159,6 +2185,9 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     Thread: function Thread() {
       return this.$store.state.thread;
+    },
+    LoggedIn: function LoggedIn() {
+      return this.$store.state.loggedIn;
     }
   }
 });
@@ -37646,34 +37675,59 @@ var render = function() {
     { staticClass: "navbar navbar-expand-md navbar-light bg-white shadow-sm" },
     [
       _c("div", { staticClass: "container" }, [
-        _c("ul", { staticClass: "navbar-nav ml-auto" }, [
-          _c(
-            "li",
-            { staticClass: "nav-item pr-3" },
-            [
-              _c("router-link", { attrs: { to: { name: "login" } } }, [
-                _vm._v("\n                    Login\n                ")
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            { staticClass: "nav-item" },
-            [
-              _c("router-link", { attrs: { to: { name: "register" } } }, [
-                _vm._v("\n                    Register\n                ")
-              ])
-            ],
-            1
-          )
-        ])
+        !_vm.LoggedIn
+          ? _c("ul", { staticClass: "navbar-nav ml-auto" }, [
+              _c(
+                "li",
+                { staticClass: "nav-item pr-3" },
+                [
+                  _c("router-link", { attrs: { to: { name: "login" } } }, [
+                    _vm._v("\n                    Login\n                ")
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c("router-link", { attrs: { to: { name: "register" } } }, [
+                    _vm._v("\n                    Register\n                ")
+                  ])
+                ],
+                1
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.LoggedIn
+          ? _c("ul", { staticClass: "navbar-nav ml-auto" }, [
+              _c("li", { staticClass: "nav-item pr-3" }, [
+                _vm._v(
+                  "\n                Hello, " +
+                    _vm._s(_vm.userName) +
+                    "\n            "
+                )
+              ]),
+              _vm._v(" "),
+              _vm._m(0)
+            ])
+          : _vm._e()
       ])
     ]
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item" }, [
+      _c("a", { attrs: { href: "" } }, [_vm._v("log out")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -37695,32 +37749,79 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card m-2" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v(
-                "\r\n                    Reply to thread\r\n                "
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-footer" })
-          ])
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card m-2" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v(
+              "\r\n                    Reply to thread\r\n                "
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "form",
+              { staticClass: "form-group", attrs: { method: "POST" } },
+              [
+                _c("div", { staticClass: "row justify-content-center" }, [
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.reply,
+                        expression: "reply"
+                      }
+                    ],
+                    attrs: {
+                      name: "body",
+                      id: "body",
+                      cols: "100",
+                      rows: "5",
+                      placeholder: "Write your reply here .."
+                    },
+                    domProps: { value: _vm.reply },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.reply = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.PostReply()
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\r\n                            Reply\r\n                        "
+                    )
+                  ]
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-footer" })
         ])
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -37839,7 +37940,7 @@ var render = function() {
       _vm._v(" "),
       _c("repliescomponent"),
       _vm._v(" "),
-      _c("postreplycomponent")
+      _c("postreplycomponent", { staticClass: "pb-5" })
     ],
     1
   )
@@ -54048,7 +54149,7 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no exports provided */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -54077,6 +54178,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   router: new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"](_routes__WEBPACK_IMPORTED_MODULE_3__["default"]),
   store: new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store(_store__WEBPACK_IMPORTED_MODULE_4__["default"])
 });
+/* harmony default export */ __webpack_exports__["default"] = (app);
 
 /***/ }),
 
@@ -54587,6 +54689,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app */ "./resources/js/app.js");
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
     user: {
@@ -54595,7 +54699,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     threads: [],
     thread: {},
-    replies: []
+    replies: [],
+    loggedIn: false
   },
   mutations: {
     SET_THREADS: function SET_THREADS(state, payload) {
@@ -54611,6 +54716,12 @@ __webpack_require__.r(__webpack_exports__);
       var user = _ref.user;
       user.name = payload.name;
       user.email = payload.email;
+    },
+    SET_LOGIN: function SET_LOGIN(state) {
+      state.loggedIn = !state.loggedIn;
+    },
+    SET_REPLY: function SET_REPLY(state, payload) {
+      state.reply = payload.reply;
     }
   },
   getters: {},
@@ -54654,6 +54765,33 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
         console.log('USER REGISTER: FAILED');
+      });
+    },
+    LOGIN_USER: function LOGIN_USER(_ref6, user) {
+      var commit = _ref6.commit;
+      axios.post('/api/login', user).then(function () {
+        console.log('USER LOGIN: SUCCESSFUL');
+        commit('SET_USER', user);
+        commit('SET_LOGIN');
+        _app__WEBPACK_IMPORTED_MODULE_0__["default"].$router.push('/');
+      })["catch"](function (error) {
+        console.log(error);
+        console.log('USER LOGIN: FAILED');
+      });
+    },
+    POST_REPLY: function POST_REPLY(_ref7, reply) {
+      var dispatch = _ref7.dispatch,
+          state = _ref7.state;
+      axios.post('/api/reply/' + state.thread.id, {
+        body: reply,
+        thread_id: state.thread.id,
+        username: state.user.name
+      }).then(function () {
+        console.log('POST REPLY: SUCCESSFUL');
+        dispatch('GET_REPLIES', state.thread.id);
+      })["catch"](function (error) {
+        console.log(error);
+        console.log('POST RPELY: FAILED');
       });
     }
   }

@@ -65,13 +65,11 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  mounted: function mounted() {},
   methods: {
     RegisterUser: function RegisterUser() {
       this.$store.dispatch('REGISTER_USER', this.user);
     }
-  },
-  computed: {}
+  }
 });
 
 /***/ }),
@@ -126,9 +124,7 @@ var render = function() {
                       id: "name",
                       type: "text",
                       name: "name",
-                      required: "",
-                      autocomplete: "name",
-                      autofocus: ""
+                      required: ""
                     },
                     domProps: { value: _vm.user.name },
                     on: {
@@ -168,7 +164,8 @@ var render = function() {
                       id: "email",
                       type: "email",
                       name: "email",
-                      required: ""
+                      required: "",
+                      autocomplete: "email"
                     },
                     domProps: { value: _vm.user.email },
                     on: {
