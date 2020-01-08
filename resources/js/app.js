@@ -19,3 +19,5 @@ const app = new Vue({
     router: new VueRouter(routes),
     store: new Vuex.Store(store)
 });
+
+export default app;

@@ -22,7 +22,8 @@
         </div>
     </div>
     <repliescomponent/>
-    <postreplycomponent/>
+    <postreplycomponent class="pb-5"/>
+    <!--<postreplycomponent v-if="LoggedIn" class="pb-5"/>-->
 </div>
 </template>
 
@@ -44,7 +45,8 @@ import postreplycomponent from './PostReplyComponent'
             },
         },
         computed: {
-            Thread () { return this.$store.state.thread; } 
+            Thread () { return this.$store.state.thread; },
+            LoggedIn () { return this.$store.state.loggedIn;},
         },
     }
 </script>

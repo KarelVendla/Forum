@@ -18,10 +18,5 @@ import threadcomponent from './ThreadComponent'
             navbarcomponent,
             threadcomponent
         },
-        mounted() {
-        },
-        computed: {
-            getToggle () { return this.$store.state.toggleThread; }
-        }
     }
 </script>

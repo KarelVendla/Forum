@@ -11,19 +11,20 @@
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" required autocomplete="name" autofocus>
+                                <input v-model="user.name" id="name" type="text" class="form-control" name="name" required autocomplete="name">
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">Password</label>
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required autocomplete="password">
+                                <input v-model="user.password" id="password" type="password" class="form-control" name="password" required autocomplete="password">
                             </div>
                         </div>
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" @click.prevent="Login()">
                                     Login
                                 </button>
                                 <a href="#" style="margin-left:9.4em;">forgot passowrd</a>
@@ -39,11 +40,18 @@
 
 <script>
     export default {
-        mounted() {
+        data() {
+            return {
+                user: {
+                    name: '',
+                    password: '',
+                }
+            }
         },
-        methods: {
-        },
-        computed: {
+        methods: {  
+            Login () {
+                this.$store.dispatch('LOGIN_USER', this.user);
+            },
         },
     }
 </script>

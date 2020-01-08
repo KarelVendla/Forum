@@ -1,3 +1,5 @@
+import app from './app';
+
 export default {
     state: {
         user: {
@@ -6,7 +8,8 @@ export default {
         },
         threads: [],
         thread: {},
-        replies: [],       
+        replies: [],
+        loggedIn: false,   
     },  
     mutations: {
         SET_THREADS (state, payload) {
@@ -21,6 +24,12 @@ export default {
         SET_USER ({user}, payload) {
             user.name = payload.name;
             user.email = payload.email;
+        },
+        SET_LOGIN (state) {
+            state.loggedIn = !state.loggedIn;
+        },
+        SET_REPLY (state, payload) {
+            state.reply = payload.reply;
         }
     },
     getters: {
@@ -58,7 +67,7 @@ export default {
                     console.log(error);
                     console.log('REPLIES: GET FAILED');
                 });
-            },
+        },
         REGISTER_USER ({commit}, user) {
             return axios.post('/api/register', user)
                 .then(response => {
@@ -69,7 +78,37 @@ export default {
                 .catch(error => {
                     console.log(error);
                     console.log('USER REGISTER: FAILED');
+                });
+        },
+        LOGIN_USER ({commit}, user) {
+            axios.post('/api/login', user)
+                .then(() => {
+                    console.log('USER LOGIN: SUCCESSFUL');
+                    commit('SET_USER', user);
+                    commit('SET_LOGIN');
+                    app.$router.push('/')
+                    
                 })
-        }
+                .catch(error => {
+                    console.log(error);
+                    console.log('USER LOGIN: FAILED');
+                });
+        },
+        POST_REPLY ({dispatch, state}, reply) {
+            axios.post('/api/reply/' + state.thread.id, {
+                body: reply,
+                thread_id: state.thread.id,
+                username: state.user.name
+            })
+            .then(() => {
+                    console.log('POST REPLY: SUCCESSFUL');
+                    dispatch('GET_REPLIES', state.thread.id);
+            })
+            .catch(error => {
+                console.log(error);
+                console.log('POST RPELY: FAILED');
+            });
+        },
+        
     },
 }

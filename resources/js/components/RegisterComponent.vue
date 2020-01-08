@@ -11,14 +11,14 @@
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
                             <div class="col-md-6">
-                                <input v-model="user.name" id="name" type="text" class="form-control" name="name" required autocomplete="name" autofocus>
+                                <input v-model="user.name" id="name" type="text" class="form-control" name="name" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">E-mail address</label>
                             <div class="col-md-6">
-                                <input v-model="user.email" id="email" type="email" class="form-control" name="email" required>
+                                <input v-model="user.email" id="email" type="email" class="form-control" name="email" required autocomplete="email">
                             </div>
                         </div>
 
@@ -55,16 +55,10 @@ export default {
             },
         }
     },
-    mounted() {
-
-    },
     methods: {
         RegisterUser () {
             this.$store.dispatch('REGISTER_USER', this.user);
-        }
+        },
     },
-    computed: {
-
-    }
 }
 </script>

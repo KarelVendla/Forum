@@ -7,7 +7,15 @@
                     Reply to thread
                 </div>
                 <div class="card-body">
-                    
+                    <form method="POST" class="form-group">
+                        <div class="row justify-content-center">
+                        <textarea v-model="reply" name="body" id="body" cols="100" rows="5" placeholder="Write your reply here .."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" @click.prevent="PostReply()">
+                            Reply
+                        </button>
+                    </form>
                 </div>
                 <div class="card-footer">
                     
@@ -20,11 +28,17 @@
 
 <script>
     export default {
+        data() {
+            return {
+                reply: ''
+            }
+        },
         mounted() {
         },
         methods: {
-        },
-        computed: {
+            PostReply () {
+                this.$store.dispatch('POST_REPLY', this.reply);
+            },
         },
     }
 </script>
