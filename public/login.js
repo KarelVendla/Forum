@@ -131,8 +131,7 @@ var staticRenderFns = [
                         type: "password",
                         name: "password",
                         required: "",
-                        autocomplete: "password",
-                        autofocus: ""
+                        autocomplete: "password"
                       }
                     })
                   ])

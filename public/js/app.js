@@ -54591,8 +54591,7 @@ __webpack_require__.r(__webpack_exports__);
   state: {
     user: {
       name: '',
-      email: '',
-      password: ''
+      email: ''
     },
     threads: [],
     thread: {},
@@ -54607,12 +54606,17 @@ __webpack_require__.r(__webpack_exports__);
     },
     SET_REPLIES: function SET_REPLIES(state, payload) {
       state.replies = payload;
+    },
+    SET_USER: function SET_USER(_ref, payload) {
+      var user = _ref.user;
+      user.name = payload.name;
+      user.email = payload.email;
     }
   },
   getters: {},
   actions: {
-    GET_THREADS: function GET_THREADS(_ref) {
-      var commit = _ref.commit;
+    GET_THREADS: function GET_THREADS(_ref2) {
+      var commit = _ref2.commit;
       return axios.get('/api/threads').then(function (response) {
         commit('SET_THREADS', response.data.data);
         console.log('THREAD(S): GET SUCCESSFUL');
@@ -54621,8 +54625,8 @@ __webpack_require__.r(__webpack_exports__);
         console.log('THREAD(S): GET FAILED');
       });
     },
-    GET_THREAD: function GET_THREAD(_ref2, id) {
-      var commit = _ref2.commit;
+    GET_THREAD: function GET_THREAD(_ref3, id) {
+      var commit = _ref3.commit;
       return axios.get('/api/threads/' + id).then(function (response) {
         commit('SET_THREAD', response.data.data[0]);
         console.log('THREAD: GET SUCCESSFUL');
@@ -54631,14 +54635,25 @@ __webpack_require__.r(__webpack_exports__);
         console.log('THREAD: GET FAILED');
       });
     },
-    GET_REPLIES: function GET_REPLIES(_ref3, thread_id) {
-      var commit = _ref3.commit;
+    GET_REPLIES: function GET_REPLIES(_ref4, thread_id) {
+      var commit = _ref4.commit;
       return axios.get('/api/replies/' + thread_id).then(function (response) {
         commit('SET_REPLIES', response.data.data);
         console.log('REPLIES: GET SUCCESSFUL');
       })["catch"](function (error) {
         console.log(error);
         console.log('REPLIES: GET FAILED');
+      });
+    },
+    REGISTER_USER: function REGISTER_USER(_ref5, user) {
+      var commit = _ref5.commit;
+      return axios.post('/api/register', user).then(function (response) {
+        console.log(response);
+        console.log('USER REGISTER: SUCCESSFUL');
+        commit('SET_USER', user);
+      })["catch"](function (error) {
+        console.log(error);
+        console.log('USER REGISTER: FAILED');
       });
     }
   }

@@ -3,7 +3,6 @@ export default {
         user: {
             name: '',
             email: '',
-            password: '',
         },
         threads: [],
         thread: {},
@@ -19,6 +18,10 @@ export default {
         SET_REPLIES (state, payload) {
             state.replies = payload;
         },
+        SET_USER ({user}, payload) {
+            user.name = payload.name;
+            user.email = payload.email;
+        }
     },
     getters: {
     },
@@ -56,5 +59,17 @@ export default {
                     console.log('REPLIES: GET FAILED');
                 });
             },
+        REGISTER_USER ({commit}, user) {
+            return axios.post('/api/register', user)
+                .then(response => {
+                    console.log(response);
+                    console.log('USER REGISTER: SUCCESSFUL');
+                    commit('SET_USER',user);
+                })
+                .catch(error => {
+                    console.log(error);
+                    console.log('USER REGISTER: FAILED');
+                })
+        }
     },
 }
