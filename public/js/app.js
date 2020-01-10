@@ -2024,9 +2024,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    this.getUser();
+  },
   methods: {
     Logout: function Logout() {
       this.$store.dispatch('LOGOUT');
+    },
+    getUser: function getUser() {
+      this.$store.dispatch('GET_AUTH_USER');
     }
   },
   computed: {
@@ -2190,10 +2196,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.GetThread();
+    this.GetUser();
   },
   methods: {
     GetThread: function GetThread() {
       this.$store.dispatch('GET_THREAD', this.$route.params.id);
+    },
+    GetUser: function GetUser() {
+      this.$store.dispatch('GET_AUTH_USER');
     }
   },
   computed: {
@@ -58483,8 +58493,7 @@ __webpack_require__.r(__webpack_exports__);
           state = _ref8.state;
       axios.post('/api/reply/' + state.thread.id, {
         body: reply,
-        thread_id: state.thread.id,
-        username: state.user.name
+        thread_id: state.thread.id
       }).then(function () {
         console.log('POST REPLY: SUCCESSFUL');
         dispatch('GET_REPLIES', state.thread.id);

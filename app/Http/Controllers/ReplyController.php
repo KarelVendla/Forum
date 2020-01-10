@@ -24,12 +24,16 @@ class ReplyController extends Controller
         return ReplyResource::collection($replies);
     }
 
-    public function store(Thread $thread)
+    public function store(Request $request)
     {
+        $reply = new Reply();
+        $reply->body = $request->body;
+        $reply->thread_id = $request->thread_id;
+        $reply->user_id = auth()->id();
 
-        $thread->addReply([
-            'body' => request('body'),
-            'user_id' => auth()->id()
-        ]);
+        $reply->save();
+
+        return new ReplyResource($reply);
+
     }
 }
