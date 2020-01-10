@@ -13,21 +13,29 @@ use Illuminate\Http\Request;
 |
 */
 
-//Get all threads
+//ALl threads
 Route::get('threads','ThreadController@index');
-//Get all replies based on thread id
+
+//All replies
 Route::get('replies/{thread_id}','ReplyController@index');
-//Get single thread
+
+//Single thread
 Route::get('threads/{id}', 'ThreadController@show');
-//Post a reply
+
+//Authenticated users data
+Route::get('me', 'AuthController@me');
+
+//Post reply
 Route::post('reply/{thread_id}', 'ReplyController@store');
 
-Route::group([
-    'middleware' => 'api',
-    'prefix' => 'auth' 
-], function ($router) {
-    Route::post('login', 'AuthController@login');
-    Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
-});
+//Register
+Route::post('auth/register', 'AuthController@register');
+
+//Login
+Route::post('auth/login', 'AuthController@login');
+
+//Logout
+Route::get('logout', 'AuthController@logout');
+
+//Refresh jwt (JSON WEB TOKEN)
+Route::post('refresh', 'AuthController@refresh');
