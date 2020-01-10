@@ -2,13 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
+use Tymon\JWTAuth\JWTGuard;
 
 class AuthController extends Controller
 {
+
+    /* 
+    Authentication Controller
+
+    FUNCTIONS:
+
+    #REGISTER
+    #LOGIN
+    #LOGOUT
+    #ME (Returns autneticated users data in json format)
+    #LOGOUT
+    #REFRESH (Refresh token)
+    #RESPONDWITHTOKEN (Returns response with jwt)
+
+    */
+
+    public $loginAfterSignUp = true;
 
     public function register(Request $request)
     {
@@ -25,7 +42,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request(['name', 'password']);
+        $credentials = $request->only(['name', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
@@ -51,14 +68,6 @@ class AuthController extends Controller
         return $this->respondWithToken(auth()->refresh());
     }
 
-
-     /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     protected function respondWithToken($token)
     {
         return response()->json([

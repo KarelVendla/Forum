@@ -11,12 +11,12 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
-    public function getJWITdentifier() 
+    public function getJWTIdentifier()  
     {
         return $this->getKey();
     }
 
-    public function getJWTCustomClaims() 
+    public function getJWTCustomClaims()
     {
         return [];
     }
@@ -26,7 +26,7 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_toke  n',
     ];
 
     protected $casts = [
