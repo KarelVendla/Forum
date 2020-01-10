@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"login":"login","vendors~register":"vendors~register","register":"register"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"login":"login","register":"register"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -58349,7 +58349,7 @@ __webpack_require__.r(__webpack_exports__);
     path: '/register',
     name: 'register',
     component: function component() {
-      return Promise.all(/*! import() | register */[__webpack_require__.e("vendors~register"), __webpack_require__.e("register")]).then(__webpack_require__.bind(null, /*! ./components/RegisterComponent */ "./resources/js/components/RegisterComponent.vue"));
+      return __webpack_require__.e(/*! import() | register */ "register").then(__webpack_require__.bind(null, /*! ./components/RegisterComponent */ "./resources/js/components/RegisterComponent.vue"));
     }
   }, {
     path: '/login',
@@ -58442,13 +58442,16 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     REGISTER_USER: function REGISTER_USER(_ref5, user) {
-      var state = _ref5.state;
+      var _this = this;
+
+      var commit = _ref5.commit;
       _app__WEBPACK_IMPORTED_MODULE_0__["default"].$auth.register({
         name: user.name,
         email: user.email,
         password: user.password
       }).then(function (response) {
         console.log(response);
+        commit('SET_AUTHENTICATED', _this.$auth.isAuthenticated());
       });
     },
     LOGIN_USER: function LOGIN_USER(_ref6, user) {
