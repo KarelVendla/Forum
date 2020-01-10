@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
-            <ul class="navbar-nav ml-auto" v-if="!LoggedIn">
+            <ul class="navbar-nav ml-auto" v-if="!isAuthenticated">
                 <li class="nav-item pr-3">
                     <router-link :to="{name:'login'}" >
                         Login
@@ -13,12 +13,13 @@
                     </router-link>
                 </li>
              </ul>
-             <ul class="navbar-nav ml-auto" v-if="LoggedIn">
+             <ul class="navbar-nav ml-auto" v-if="isAuthenticated">
                 <li class="nav-item pr-3">
-                    Hello, {{userName}}
+                    Hello
+                    {{userName}}
                 </li>
                 <li class="nav-item">
-                    <a href="">log out</a>
+                    <button class="btn-info" type="submit" @click="Logout()">Logout</button>
                 </li>
              </ul>
         </div>
@@ -27,9 +28,14 @@
 
 <script>
 export default {
+    methods: {
+        Logout () {
+            this.$store.dispatch('LOGOUT');
+        },
+    },
     computed: {
-        LoggedIn () { return this.$store.state.loggedIn;},
-        userName () { return this.$store.state.user.name;},
+        isAuthenticated () { return this.$store.state.authenticated; },
+        userName () { return this.$store.state.user.name;}
     }
 }
 </script>
