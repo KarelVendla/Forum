@@ -109,7 +109,6 @@ export default {
             axios.post('/api/reply/' + state.thread.id, {
                 body: reply,
                 thread_id: state.thread.id,
-                username: state.user.name
             })
             .then(() => {
                     console.log('POST REPLY: SUCCESSFUL');
