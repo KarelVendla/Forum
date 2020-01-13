@@ -1,7 +1,7 @@
 <template>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header"><h4>{{Thread.title}}</h4></div>
 
@@ -20,10 +20,12 @@
                 </div>
             </div>
         </div>
-    </div>
     <repliescomponent/>
-    <postreplycomponent class="pb-5"/>
-    <!--<postreplycomponent v-if="LoggedIn" class="pb-5"/>-->
+    <postreplycomponent class="pb-5" v-if="isAuthenticated"/>
+    <p v-else >
+        Please <router-link :to="{name: 'login'}">sign in</router-link> to participate in discussion.
+    </p>
+    </div>
 </div>
 </template>
 
@@ -46,7 +48,7 @@ import postreplycomponent from './PostReplyComponent'
         },
         computed: {
             Thread () { return this.$store.state.thread; },
-            LoggedIn () { return this.$store.state.loggedIn;},
+            isAuthenticated () { return this.$store.state.authenticated; },
         },
     }
 </script>

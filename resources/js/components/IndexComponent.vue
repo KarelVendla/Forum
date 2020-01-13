@@ -26,7 +26,7 @@ import threadcomponent from './ThreadComponent'
         components: {
             threadscomponent,
             navbarcomponent,
-            threadcomponent
-        },   
+            threadcomponent,
+        },  
     }
 </script>

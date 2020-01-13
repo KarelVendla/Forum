@@ -51,7 +51,7 @@
         methods: {  
             Login () {
                 this.$store.dispatch('LOGIN_USER', this.user);
-            },
+            },  
         },
     }
 </script>
