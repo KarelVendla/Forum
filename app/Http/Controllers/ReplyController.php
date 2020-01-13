@@ -14,7 +14,7 @@ class ReplyController extends Controller
 
     public function __construct()
     {
-    $this->middleware('auth', ['only' => ['create', 'store', 'edit', 'delete']]);
+    $this->middleware('auth', ['only' => ['store', 'edit', 'delete']]);
     }
 
     public function index($thread_id)
