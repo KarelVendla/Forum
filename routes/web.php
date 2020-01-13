@@ -19,6 +19,10 @@ Route::get('/threads/{id}', function () {
     return view('layouts.app');
 });
 
+Route::get('/create', function () {
+    return view('layouts.app');
+});
+
 
 Auth::routes();
 

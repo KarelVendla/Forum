@@ -88,7 +88,6 @@ export default {
                     commit('SET_AUTHENTICATE', app.$auth.isAuthenticated());
                     dispatch('GET_AUTH_USER');
                     console.log('USER LOGIN: SUCCESSFUL');
-                    app.$router.push('/');
                 })
                 .catch(error => {
                     console.log(error);
@@ -131,6 +130,20 @@ export default {
             .catch(error => {
                 console.log(error);
                 console.log('LOGOUT: FAILED');
+            })
+        },
+        CREATE_THREAD ({state}, thread) {
+            return axios.post('api/thread', {
+                title: thread.title,
+                body: thread.body,
+            })
+            .then(response => {
+                console.log('CREATE THREAD: SUCCESSFUL');
+                app.$router.push('/threads/' + response.data.thread_id);
+            })
+            .catch(error => {
+                console.log(error);
+                console.log('CREATE THREAD: FAILED');
             })
         }
     },
