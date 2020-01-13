@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"login":"login","register":"register"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"createthread":"createthread","login":"login","register":"register"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -2023,16 +2023,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    this.getUser();
-  },
   methods: {
     Logout: function Logout() {
       this.$store.dispatch('LOGOUT');
-    },
-    getUser: function getUser() {
-      this.$store.dispatch('GET_AUTH_USER');
     }
   },
   computed: {
@@ -2187,6 +2196,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2196,22 +2207,18 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.GetThread();
-    this.GetUser();
   },
   methods: {
     GetThread: function GetThread() {
       this.$store.dispatch('GET_THREAD', this.$route.params.id);
-    },
-    GetUser: function GetUser() {
-      this.$store.dispatch('GET_AUTH_USER');
     }
   },
   computed: {
     Thread: function Thread() {
       return this.$store.state.thread;
     },
-    LoggedIn: function LoggedIn() {
-      return this.$store.state.loggedIn;
+    isAuthenticated: function isAuthenticated() {
+      return this.$store.state.authenticated;
     }
   }
 });
@@ -41315,6 +41322,38 @@ var render = function() {
     { staticClass: "navbar navbar-expand-md navbar-light bg-white shadow-sm" },
     [
       _c("div", { staticClass: "container" }, [
+        _c("ul", { staticClass: "navbar-nav" }, [
+          _c(
+            "li",
+            { staticClass: "nav-item pr-3" },
+            [
+              _c("router-link", { attrs: { to: { name: "index" } } }, [
+                _vm._v("\n                    All threads\n                ")
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _vm.isAuthenticated
+            ? _c(
+                "li",
+                { staticClass: "nav-item pr-3" },
+                [
+                  _c(
+                    "router-link",
+                    { attrs: { to: { name: "createthread" } } },
+                    [
+                      _vm._v(
+                        "\n                    Create Thread\n                "
+                      )
+                    ]
+                  )
+                ],
+                1
+              )
+            : _vm._e()
+        ]),
+        _vm._v(" "),
         !_vm.isAuthenticated
           ? _c("ul", { staticClass: "navbar-nav ml-auto" }, [
               _c(
@@ -41396,7 +41435,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-8" }, [
+      _c("div", { staticClass: "col-md-10" }, [
         _c("div", { staticClass: "card m-2" }, [
           _c("div", { staticClass: "card-header" }, [
             _vm._v(
@@ -41492,7 +41531,7 @@ var render = function() {
     _c("div", { staticClass: "row justify-content-center" }, [
       _c(
         "div",
-        { staticClass: "col-md-8" },
+        { staticClass: "col-md-12" },
         _vm._l(_vm.getReplies, function(reply) {
           return _c("div", { key: reply.id, staticClass: "card m-2" }, [
             _c("div", { staticClass: "card-header" }, [
@@ -41543,12 +41582,12 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "container" },
-    [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
+  return _c("div", { staticClass: "container" }, [
+    _c(
+      "div",
+      { staticClass: "row justify-content-center" },
+      [
+        _c("div", { staticClass: "col-md-12" }, [
           _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-header" }, [
               _c("h4", [_vm._v(_vm._s(_vm.Thread.title))])
@@ -41580,15 +41619,27 @@ var render = function() {
               ])
             ])
           ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("repliescomponent"),
-      _vm._v(" "),
-      _c("postreplycomponent", { staticClass: "pb-5" })
-    ],
-    1
-  )
+        ]),
+        _vm._v(" "),
+        _c("repliescomponent"),
+        _vm._v(" "),
+        _vm.isAuthenticated
+          ? _c("postreplycomponent", { staticClass: "pb-5" })
+          : _c(
+              "p",
+              [
+                _vm._v("\r\n        Please "),
+                _c("router-link", { attrs: { to: { name: "login" } } }, [
+                  _vm._v("sign in")
+                ]),
+                _vm._v(" to participate in discussion.\r\n    ")
+              ],
+              1
+            )
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -58346,6 +58397,7 @@ __webpack_require__.r(__webpack_exports__);
   mode: 'history',
   routes: [{
     path: '/',
+    name: 'index',
     component: function component() {
       return Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ./components/ThreadsComponent */ "./resources/js/components/ThreadsComponent.vue"));
     }
@@ -58366,6 +58418,12 @@ __webpack_require__.r(__webpack_exports__);
     name: 'login',
     component: function component() {
       return __webpack_require__.e(/*! import() | login */ "login").then(__webpack_require__.bind(null, /*! ./components/LoginComponent */ "./resources/js/components/LoginComponent.vue"));
+    }
+  }, {
+    path: '/create',
+    name: 'createthread',
+    component: function component() {
+      return __webpack_require__.e(/*! import() | createthread */ "createthread").then(__webpack_require__.bind(null, /*! ./components/CreateThreadComponent */ "./resources/js/components/CreateThreadComponent.vue"));
     }
   }]
 });
@@ -58473,7 +58531,6 @@ __webpack_require__.r(__webpack_exports__);
         commit('SET_AUTHENTICATE', _app__WEBPACK_IMPORTED_MODULE_0__["default"].$auth.isAuthenticated());
         dispatch('GET_AUTH_USER');
         console.log('USER LOGIN: SUCCESSFUL');
-        _app__WEBPACK_IMPORTED_MODULE_0__["default"].$router.push('/');
       })["catch"](function (error) {
         console.log(error);
       });
@@ -58513,6 +58570,19 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
         console.log('LOGOUT: FAILED');
+      });
+    },
+    CREATE_THREAD: function CREATE_THREAD(_ref10, thread) {
+      var state = _ref10.state;
+      return axios.post('api/thread', {
+        title: thread.title,
+        body: thread.body
+      }).then(function (response) {
+        console.log('CREATE THREAD: SUCCESSFUL');
+        _app__WEBPACK_IMPORTED_MODULE_0__["default"].$router.push('/threads/' + response.data.thread_id);
+      })["catch"](function (error) {
+        console.log(error);
+        console.log('CREATE THREAD: FAILED');
       });
     }
   }

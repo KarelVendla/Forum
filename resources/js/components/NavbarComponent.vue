@@ -1,6 +1,21 @@
 <template>
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
+
+
+            <ul class="navbar-nav" >
+                <li class="nav-item pr-3">
+                    <router-link :to="{name: 'index'}">
+                        All threads
+                    </router-link>
+                </li>
+                <li class="nav-item pr-3" v-if="isAuthenticated">
+                    <router-link :to="{name: 'createthread'}">
+                        Create Thread
+                    </router-link>
+                </li>
+             </ul>
+
             <ul class="navbar-nav ml-auto" v-if="!isAuthenticated">
                 <li class="nav-item pr-3">
                     <router-link :to="{name:'login'}" >
