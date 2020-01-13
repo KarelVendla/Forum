@@ -8,14 +8,26 @@
                 <div class="card-body">
                     <form method="POST">
                         <div class="form-group row">
-                            <label for="name" class="col-md-2 col-form-label text-md-right">Title:  </label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="category">Category</label>
+                                </div>
+                                <select class="custom-select" id="category" v-model="thread.channelSlug">
+                                    <option  v-for="channel in Channels" :key="channel.id">{{channel.name}}</option>
+                                </select>
+                            </div>
+                    </div>
+
+
+                        <div class="form-group row">
+                            <label for="title" class="col-md-2 col-form-label text-md-right">Title:</label>
                             <div class="col-md-8">
-                                <input v-model="thread.title" id="title" type="text" class="form-control" name="title">
+                                <input v-model="thread.title" id="title" type="text" class="form-control" name="title"/>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-2 col-form-label text-md-right">Body:</label>
+                            <label for="body" class="col-md-2 col-form-label text-md-right">Body:</label>
                             <div class="col-md-8">
                                 <textarea v-model="thread.body" id="body" type="text" class="form-control" rows="8" name="body"/>
                             </div>
@@ -44,7 +56,8 @@
             return {
                 thread: {
                     title: '',
-                    body: ''
+                    body: '',
+                    channelSlug: null
                 },
             }
         },
@@ -52,12 +65,16 @@
             logincomponent
         },
         methods: {
+            GetChannelId(id) {
+                this.thread.channel_id = id;
+            },
             CreateThread () {
                 this.$store.dispatch('CREATE_THREAD', this.thread);
             },
         },
         computed: {
-            isAuthenticated () { return this.$store.state.authenticated; }
+            isAuthenticated () { return this.$store.state.authenticated; },
+            Channels () {return this.$store.state.channels; }
         }
     }
 </script>
