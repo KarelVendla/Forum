@@ -48,13 +48,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       thread: {
         title: '',
-        body: ''
+        body: '',
+        channelSlug: null
       }
     };
   },
@@ -62,6 +75,9 @@ __webpack_require__.r(__webpack_exports__);
     logincomponent: _LoginComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   methods: {
+    GetChannelId: function GetChannelId(id) {
+      this.thread.channel_id = id;
+    },
     CreateThread: function CreateThread() {
       this.$store.dispatch('CREATE_THREAD', this.thread);
     }
@@ -69,6 +85,9 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     isAuthenticated: function isAuthenticated() {
       return this.$store.state.authenticated;
+    },
+    Channels: function Channels() {
+      return this.$store.state.channels;
     }
   }
 });
@@ -172,13 +191,60 @@ var render = function() {
                 _c("div", { staticClass: "card-body" }, [
                   _c("form", { attrs: { method: "POST" } }, [
                     _c("div", { staticClass: "form-group row" }, [
+                      _c("div", { staticClass: "input-group" }, [
+                        _vm._m(0),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.thread.channelSlug,
+                                expression: "thread.channelSlug"
+                              }
+                            ],
+                            staticClass: "custom-select",
+                            attrs: { id: "category" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.thread,
+                                  "channelSlug",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          _vm._l(_vm.Channels, function(channel) {
+                            return _c("option", { key: channel.id }, [
+                              _vm._v(_vm._s(channel.name))
+                            ])
+                          }),
+                          0
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
                       _c(
                         "label",
                         {
                           staticClass: "col-md-2 col-form-label text-md-right",
-                          attrs: { for: "name" }
+                          attrs: { for: "title" }
                         },
-                        [_vm._v("Title:  ")]
+                        [_vm._v("Title:")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-8" }, [
@@ -211,7 +277,7 @@ var render = function() {
                         "label",
                         {
                           staticClass: "col-md-2 col-form-label text-md-right",
-                          attrs: { for: "name" }
+                          attrs: { for: "body" }
                         },
                         [_vm._v("Body:")]
                       ),
@@ -284,7 +350,20 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c(
+        "label",
+        { staticClass: "input-group-text", attrs: { for: "category" } },
+        [_vm._v("Category")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 

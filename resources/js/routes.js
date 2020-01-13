@@ -8,7 +8,7 @@ export default {
             component: () => import(/* webpackChunkName: "threads"*/ './components/ThreadsComponent'),
         },
         {
-            path: '/threads/:id',
+            path: '/threads/:channel/:id',
             name: 'thread',
             component: () => import(/* webpackChunkName: "thread"*/ './components/ThreadComponent'),
         },

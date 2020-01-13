@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('layouts.app');
 });
 
-Route::get('/threads/{id}', function () {
+Route::get('/threads/{channel}/{id}', function () {
     return view('layouts.app');
 });
 

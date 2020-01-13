@@ -16,20 +16,22 @@ use Illuminate\Http\Request;
 //ALl threads
 Route::get('threads','ThreadController@index');
 
-//All replies
-Route::get('replies/{thread_id}','ReplyController@index');
-
 //Single thread
-Route::get('threads/{id}', 'ThreadController@show');
+Route::get('threads/{channel}/{id}', 'ThreadController@show');
 
-//Authenticated users data
-Route::get('me', 'AuthController@me');
+//Post thread
+Route::post('thread', 'ThreadController@store');
 
 //Post reply
 Route::post('reply/{thread_id}', 'ReplyController@store');
 
-//Post thread
-Route::post('thread', 'ThreadController@store');
+//All replies
+Route::get('replies/{thread_id}','ReplyController@index');
+
+
+//Authenticated users data
+Route::get('me', 'AuthController@me');
+
 
 //Register
 Route::post('auth/register', 'AuthController@register');
@@ -42,3 +44,9 @@ Route::get('logout', 'AuthController@logout');
 
 //Refresh jwt (JSON WEB TOKEN)
 Route::post('refresh', 'AuthController@refresh');
+
+
+//All Channels
+Route::get('channels', 'ChannelController@index');
+
+Route::get('threads/{channel}', 'ChannelController@show');

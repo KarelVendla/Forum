@@ -1944,6 +1944,43 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ChannelsComponent.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ChannelsComponent.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    this.fetchChannels();
+  },
+  methods: {
+    fetchChannels: function fetchChannels() {
+      return this.$store.dispatch('GET_CHANNELS');
+    }
+  },
+  computed: {
+    getChannels: function getChannels() {
+      return this.$store.state.channels;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/IndexComponent.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/IndexComponent.vue?vue&type=script&lang=js& ***!
@@ -1956,6 +1993,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _NavbarComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NavbarComponent */ "./resources/js/components/NavbarComponent.vue");
 /* harmony import */ var _ThreadsComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ThreadsComponent */ "./resources/js/components/ThreadsComponent.vue");
 /* harmony import */ var _ThreadComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ThreadComponent */ "./resources/js/components/ThreadComponent.vue");
+/* harmony import */ var _ChannelsComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ChannelsComponent */ "./resources/js/components/ChannelsComponent.vue");
 //
 //
 //
@@ -1965,6 +2003,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
@@ -1975,12 +2015,14 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     initializeAuthentication: function initializeAuthentication() {
       this.$store.commit('SET_AUTHENTICATE', this.$auth.isAuthenticated());
+      this.$store.dispatch('GET_AUTH_USER');
     }
   },
   components: {
     threadscomponent: _ThreadsComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
     navbarcomponent: _NavbarComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
-    threadcomponent: _ThreadComponent__WEBPACK_IMPORTED_MODULE_2__["default"]
+    threadcomponent: _ThreadComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
+    channelscomponent: _ChannelsComponent__WEBPACK_IMPORTED_MODULE_3__["default"]
   }
 });
 
@@ -41270,6 +41312,41 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof="fun
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ChannelsComponent.vue?vue&type=template&id=468a3c9c&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ChannelsComponent.vue?vue&type=template&id=468a3c9c& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c(
+      "div",
+      { staticClass: "d-flex flex-row m-1" },
+      _vm._l(_vm.getChannels, function(channel) {
+        return _c("div", { key: channel.id, staticClass: "p-1" }, [
+          _c("a", { attrs: { href: "#" } }, [_vm._v(_vm._s(channel.name))])
+        ])
+      }),
+      0
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/IndexComponent.vue?vue&type=template&id=754b2df6&":
 /*!*****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/IndexComponent.vue?vue&type=template&id=754b2df6& ***!
@@ -41289,6 +41366,8 @@ var render = function() {
     "div",
     [
       _c("navbarcomponent"),
+      _vm._v(" "),
+      _c("channelscomponent"),
       _vm._v(" "),
       _c("div", { staticClass: "container" }, [_c("router-view")], 1)
     ],
@@ -41681,7 +41760,10 @@ var render = function() {
                       "router-link",
                       {
                         attrs: {
-                          to: { name: "thread", params: { id: thread.id } }
+                          to: {
+                            name: "thread",
+                            params: { channel: thread.channel, id: thread.id }
+                          }
                         }
                       },
                       [
@@ -57970,6 +58052,75 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/components/ChannelsComponent.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/ChannelsComponent.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ChannelsComponent_vue_vue_type_template_id_468a3c9c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ChannelsComponent.vue?vue&type=template&id=468a3c9c& */ "./resources/js/components/ChannelsComponent.vue?vue&type=template&id=468a3c9c&");
+/* harmony import */ var _ChannelsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ChannelsComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/ChannelsComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ChannelsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ChannelsComponent_vue_vue_type_template_id_468a3c9c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ChannelsComponent_vue_vue_type_template_id_468a3c9c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ChannelsComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ChannelsComponent.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/ChannelsComponent.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ChannelsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ChannelsComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ChannelsComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ChannelsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ChannelsComponent.vue?vue&type=template&id=468a3c9c&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/ChannelsComponent.vue?vue&type=template&id=468a3c9c& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ChannelsComponent_vue_vue_type_template_id_468a3c9c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ChannelsComponent.vue?vue&type=template&id=468a3c9c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ChannelsComponent.vue?vue&type=template&id=468a3c9c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ChannelsComponent_vue_vue_type_template_id_468a3c9c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ChannelsComponent_vue_vue_type_template_id_468a3c9c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/IndexComponent.vue":
 /*!****************************************************!*\
   !*** ./resources/js/components/IndexComponent.vue ***!
@@ -58402,7 +58553,7 @@ __webpack_require__.r(__webpack_exports__);
       return Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ./components/ThreadsComponent */ "./resources/js/components/ThreadsComponent.vue"));
     }
   }, {
-    path: '/threads/:id',
+    path: '/threads/:channel/:id',
     name: 'thread',
     component: function component() {
       return Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ./components/ThreadComponent */ "./resources/js/components/ThreadComponent.vue"));
@@ -58451,6 +58602,7 @@ __webpack_require__.r(__webpack_exports__);
     threads: [],
     thread: {},
     replies: [],
+    channels: [],
     authenticated: false
   },
   mutations: {
@@ -58474,6 +58626,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     SET_AUTHENTICATE: function SET_AUTHENTICATE(state, payload) {
       state.authenticated = payload;
+    },
+    SET_CHANNELS: function SET_CHANNELS(state, payload) {
+      state.channels = payload;
     }
   },
   actions: {
@@ -58489,9 +58644,9 @@ __webpack_require__.r(__webpack_exports__);
         console.log('THREAD(S): GET FAILED');
       });
     },
-    GET_THREAD: function GET_THREAD(_ref3, id) {
+    GET_THREAD: function GET_THREAD(_ref3, channel, id) {
       var commit = _ref3.commit;
-      return axios.get('/api/threads/' + id).then(function (response) {
+      return axios.get('/api/threads/' + channel + '/' + id).then(function (response) {
         commit('SET_THREAD', response.data.data[0]);
         console.log('THREAD: GET SUCCESSFUL');
       })["catch"](function (error) {
@@ -58510,8 +58665,6 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     REGISTER_USER: function REGISTER_USER(_ref5, user) {
-      var _this = this;
-
       var commit = _ref5.commit;
       _app__WEBPACK_IMPORTED_MODULE_0__["default"].$auth.register({
         name: user.name,
@@ -58519,7 +58672,8 @@ __webpack_require__.r(__webpack_exports__);
         password: user.password
       }).then(function (response) {
         console.log(response);
-        commit('SET_AUTHENTICATED', _this.$auth.isAuthenticated());
+        commit('SET_AUTHENTICATED', _app__WEBPACK_IMPORTED_MODULE_0__["default"].$auth.isAuthenticated());
+        _app__WEBPACK_IMPORTED_MODULE_0__["default"].$router.push('/');
       });
     },
     LOGIN_USER: function LOGIN_USER(_ref6, user) {
@@ -58576,13 +58730,24 @@ __webpack_require__.r(__webpack_exports__);
       var state = _ref10.state;
       return axios.post('api/thread', {
         title: thread.title,
-        body: thread.body
+        body: thread.body,
+        channelSlug: thread.channelSlug
       }).then(function (response) {
         console.log('CREATE THREAD: SUCCESSFUL');
-        _app__WEBPACK_IMPORTED_MODULE_0__["default"].$router.push('/threads/' + response.data.thread_id);
+        _app__WEBPACK_IMPORTED_MODULE_0__["default"].$router.push('/threads/' + response.data.category + '/' + response.data.thread_id);
       })["catch"](function (error) {
         console.log(error);
         console.log('CREATE THREAD: FAILED');
+      });
+    },
+    GET_CHANNELS: function GET_CHANNELS(_ref11) {
+      var commit = _ref11.commit;
+      axios.get('/api/channels').then(function (response) {
+        commit('SET_CHANNELS', response.data.data);
+        console.log('CHANNELS: GET SUCCESSFUL');
+      })["catch"](function (error) {
+        console.log(error);
+        console.log('CHANNELS: GET FAILED');
       });
     }
   }
