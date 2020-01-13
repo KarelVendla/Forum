@@ -10,6 +10,7 @@ export default {
         threads: [],
         thread: {},
         replies: [],
+        channels: [],
         authenticated: false,
     },  
     mutations: {
@@ -33,6 +34,9 @@ export default {
         SET_AUTHENTICATE (state, payload) {
             state.authenticated = payload;
         },
+        SET_CHANNELS (state, payload) {
+            state.channels = payload;
+        }
     },
     actions: {
         GET_THREADS ({commit, dispatch}) {
@@ -47,8 +51,8 @@ export default {
                     console.log('THREAD(S): GET FAILED');
                 });
         },
-        GET_THREAD ({commit}, id) {
-            return axios.get('/api/threads/' + id)
+        GET_THREAD ({commit}, channel,id) {
+            return axios.get('/api/threads/' + channel + '/' + id)
                 .then(response => {
                     commit('SET_THREAD', response.data.data[0]);
                     console.log('THREAD: GET SUCCESSFUL');
@@ -77,7 +81,8 @@ export default {
             })
             .then(response => {
                 console.log(response);
-                commit('SET_AUTHENTICATED', this.$auth.isAuthenticated());
+                commit('SET_AUTHENTICATED', app.$auth.isAuthenticated());
+                app.$router.push('/');
             });
         },
         LOGIN_USER ({commit, dispatch}, user) {
@@ -136,14 +141,26 @@ export default {
             return axios.post('api/thread', {
                 title: thread.title,
                 body: thread.body,
+                channelSlug: thread.channelSlug
             })
             .then(response => {
                 console.log('CREATE THREAD: SUCCESSFUL');
-                app.$router.push('/threads/' + response.data.thread_id);
+                app.$router.push('/threads/' + response.data.category+ '/' + response.data.thread_id);
             })
             .catch(error => {
                 console.log(error);
                 console.log('CREATE THREAD: FAILED');
+            })
+        },
+        GET_CHANNELS ({commit}) {
+            axios.get('/api/channels')
+            .then(response => {
+                commit('SET_CHANNELS', response.data.data);
+                console.log('CHANNELS: GET SUCCESSFUL');
+            })
+            .catch(error => {
+                console.log(error);
+                console.log('CHANNELS: GET FAILED');
             })
         }
     },
