@@ -1,6 +1,7 @@
 <template>
 <div>
     <navbarcomponent/>
+    <channelscomponent/>
     <div class="container">
         <router-view></router-view>
     </div>
@@ -11,6 +12,7 @@
 import navbarcomponent from './NavbarComponent'
 import threadscomponent from './ThreadsComponent'
 import threadcomponent from './ThreadComponent'
+import channelscomponent from './ChannelsComponent'
 
     export default {
         mounted() {
@@ -20,6 +22,7 @@ import threadcomponent from './ThreadComponent'
             initializeAuthentication () {
                           
                 this.$store.commit('SET_AUTHENTICATE', this.$auth.isAuthenticated());
+                this.$store.dispatch('GET_AUTH_USER');
                 
             },
         },
@@ -27,6 +30,7 @@ import threadcomponent from './ThreadComponent'
             threadscomponent,
             navbarcomponent,
             threadcomponent,
+            channelscomponent
         },  
     }
 </script>

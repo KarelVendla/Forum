@@ -8,7 +8,7 @@
                 <div class="card-body">
                         <article v-for="thread in getThreads" :key="thread.id">
                             <h4>
-                                <router-link :to="{ name:'thread', params:{ id: thread.id} }" >
+                                <router-link :to="{ name:'thread', params:{ channel: thread.channel , id: thread.id} }" >
                                     {{thread.title}}
                                 </router-link>
                             </h4>
