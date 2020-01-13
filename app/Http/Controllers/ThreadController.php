@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Thread;
+use App\Channel;
 use Illuminate\Http\Request;
 use App\Http\Resources\Thread as ThreadResource;
 
@@ -29,20 +30,30 @@ class ThreadController extends Controller
      */
     public function store(Request $request)
     {
+        $validate = $this->validate($request, [
+                    'title' => 'bail|required',
+                    'channelSlug' => 'required',
+                    'body' => 'required'
+                 ]);
+
         $title = $request->title;
         $user_id = auth()->id();
+        $category = $request->channelSlug;
+        $channel_id = Channel::where('slug', $category)->value('id');
 
         $thread = new Thread();
         $thread->title = $title;
         $thread->body = $request->body;
         $thread->user_id = $user_id;
-        $thread->channel_id = $request->channel_id;
+        $thread->channel_id = $channel_id;
 
         $thread->save();
-
+        
         $thread_id = Thread::where('user_id', $user_id)->where('title', $title)->value('id');
 
-        return ['thread_id' => $thread_id];
+
+        return ['thread_id' => $thread_id,
+                'category' =>  $category];
     }
 
 
