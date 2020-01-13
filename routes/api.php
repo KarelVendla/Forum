@@ -28,6 +28,9 @@ Route::get('me', 'AuthController@me');
 //Post reply
 Route::post('reply/{thread_id}', 'ReplyController@store');
 
+//Post thread
+Route::post('thread', 'ThreadController@store');
+
 //Register
 Route::post('auth/register', 'AuthController@register');
 
