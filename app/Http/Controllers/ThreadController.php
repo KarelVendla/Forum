@@ -8,22 +8,17 @@ use App\Http\Resources\Thread as ThreadResource;
 
 class ThreadController extends Controller
 {
+
+    public function __construct()
+    {
+    $this->middleware('auth', ['only' => ['store', 'edit','update', 'delete']]);
+    }
     
     public function index()
     {
-        $threads = Thread::all();
+        $threads = Thread::orderBy('created_at', 'desc')->get();
 
         return ThreadResource::collection($threads);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -34,7 +29,20 @@ class ThreadController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $title = $request->title;
+        $user_id = auth()->id();
+
+        $thread = new Thread();
+        $thread->title = $title;
+        $thread->body = $request->body;
+        $thread->user_id = $user_id;
+        $thread->channel_id = $request->channel_id;
+
+        $thread->save();
+
+        $thread_id = Thread::where('user_id', $user_id)->where('title', $title)->value('id');
+
+        return ['thread_id' => $thread_id];
     }
 
 
