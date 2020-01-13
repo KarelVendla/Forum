@@ -4,6 +4,7 @@ export default {
     routes: [
         {
             path: '/',
+            name: 'index',
             component: () => import(/* webpackChunkName: "threads"*/ './components/ThreadsComponent'),
         },
         {
@@ -20,6 +21,11 @@ export default {
             path: '/login',
             name: 'login',
             component: () => import(/* webpackChunkName: "login" */ './components/LoginComponent'),
+        },
+        {
+            path: '/create',
+            name: 'createthread',
+            component: () => import(/* webpackChunkName: "createthread" */ './components/CreateThreadComponent'),
         },
     ],
 
