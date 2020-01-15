@@ -23,6 +23,14 @@ Route::get('/create', function () {
     return view('layouts.app');
 });
 
+Route::get('/threads/{channel}', function () {
+    return view('layouts.app');
+});
+
+Route::get('/threads', function () {
+    return view('layouts.app');
+});
+
 
 Auth::routes();
 

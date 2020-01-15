@@ -4,13 +4,13 @@
         <div class="col-md-12">
             <div class="card m-2" v-for="reply in getReplies" :key="reply.id">
                 <div class="card-header">
-                    <a href="#">{{reply.owner}}</a>
+                 <h5><a href="#">{{reply.owner}}</a> replied with:</h5>
                 </div>
                 <div class="card-body">
-                    {{reply.body}} 
+                    <h5>{{reply.body}}</h5>
                 </div>
                 <div class="card-footer">
-                    {{reply.created_at}}
+                  <h5>{{reply.created_at}}</h5>
                 </div>
             </div>
         </div>

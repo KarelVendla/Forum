@@ -51,6 +51,9 @@
         methods: {  
             Login () {
                 this.$store.dispatch('LOGIN_USER', this.user);
+                if (this.$route.params.routeBack) {
+                 this.$router.go(-1);   
+                }
             },  
         },
     }

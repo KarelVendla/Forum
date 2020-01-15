@@ -3,5 +3,6 @@
     "/css/app.css": "/css/app.css",
     "/createthread.js": "/createthread.js",
     "/login.js": "/login.js",
-    "/register.js": "/register.js"
+    "/register.js": "/register.js",
+    "/threadsbychannel.js": "/threadsbychannel.js"
 }

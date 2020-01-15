@@ -1,8 +1,10 @@
 <template>
     <div class="container">
-        <div class="d-flex flex-row m-1">
+        <div class="row justify-content-center">
             <div class="p-1" v-for="channel in getChannels" :key="channel.id">
-                <a href="#">{{channel.name}}</a>
+                <router-link :to="{ name: 'threadsbychannel', params:{ channel: channel.name} }">
+                    <span><h5>{{channel.name}}</h5></span>
+                </router-link>
             </div>
         </div>
     </div>

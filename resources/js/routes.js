@@ -3,8 +3,8 @@ export default {
 
     routes: [
         {
-            path: '/',
-            name: 'index',
+            path: '/threads',
+            name: 'threads',
             component: () => import(/* webpackChunkName: "threads"*/ './components/ThreadsComponent'),
         },
         {
@@ -26,6 +26,11 @@ export default {
             path: '/create',
             name: 'createthread',
             component: () => import(/* webpackChunkName: "createthread" */ './components/CreateThreadComponent'),
+        },
+        {
+            path: '/threads/:channel',
+            name: 'threadsbychannel',
+            component: () => import(/* webpackChunkName: "threadsbychannel" */ './components/ThreadsByChannelComponent'),
         },
     ],
 

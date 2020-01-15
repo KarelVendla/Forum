@@ -2,28 +2,27 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-header"><h4>{{Thread.title}}</h4></div>
-
+            <div class="card-header">
+                    <h4>{{getThread.title}}</h4>
+            </div>
                 <div class="card-body">
                         <article>
-                            <div class="body">
-                                {{Thread.body}}
+                            <div class="card-body">
+                                <h5>{{getThread.body}}</h5>
                             </div>  
                         </article>
                 </div>
-                <div class="card-footer">
-                    {{Thread.created_at}}
-                    <div>
-                        By: <a href="#">{{Thread.owner}}</a>
-                    </div>
-                </div>
+            <div class="card-footer">
+                <h5>{{getThread.created_at}}</h5>
+                <h5>
+                    By: <a href="#">{{getThread.owner}}</a>
+                </h5>
             </div>
         </div>
     <repliescomponent/>
     <postreplycomponent class="pb-5" v-if="isAuthenticated"/>
     <p v-else >
-        Please <router-link :to="{name: 'login'}">sign in</router-link> to participate in discussion.
+        Please <router-link :to="{name: 'login', params: { routeBack: true }}">sign in</router-link> to participate in discussion.
     </p>
     </div>
 </div>
@@ -39,15 +38,15 @@ import postreplycomponent from './PostReplyComponent'
             postreplycomponent
         },
         mounted() {
-            this.GetThread();
+            this.fetchThread();
         },
         methods: {
-            GetThread () {
+            fetchThread () {
                 this.$store.dispatch('GET_THREAD', this.$route.params.id);
-            },
+            }
         },
         computed: {
-            Thread () { return this.$store.state.thread; },
+            getThread () { return this.$store.state.thread; },
             isAuthenticated () { return this.$store.state.authenticated; },
         },
     }

@@ -6,7 +6,7 @@ use App\Channel;
 use App\Thread;
 use Illuminate\Http\Request;
 use App\Http\Resources\Channel as ChannelResource;
-use App\Http\Resources\Channel as ThreadResource;
+use App\Http\Resources\Thread as ThreadResource;
 
 class ChannelController extends Controller
 {
@@ -43,14 +43,15 @@ class ChannelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($channelSlug)
+    public function show(Request $request)
     {
-        $channel_id = Channel::where('slug', $channelSlug)->value('id');
+        $channel = $request->channel;
+
+        $channel_id = Channel::where('slug', $channel)->value('id');
         $threads = Thread::where('channel_id', $channel_id)->get();
 
         return ThreadResource::collection($threads);
-
-    }
+    } 
 
     /**
      * Update the specified resource in storage.

@@ -38,12 +38,25 @@ export default {
             state.channels = payload;
         }
     },
+    getters: {
+        getThreadsByChannel: (state) => (channel) => {
+            return state.threads.filter(thread => thread.channel === channel)
+        },
+        getThreadById: (state) => (Id) => {
+            return state.threads.find(thread => thread.id === Id)
+        }
+    },
     actions: {
-        GET_THREADS ({commit, dispatch}) {
-            return axios.get('/api/threads')
+        GET_THREADS ({commit, dispatch, state}) {
+
+                return axios.get('/api/threads')
                 .then(response => {
                     commit('SET_THREADS', response.data.data);
-                    dispatch('GET_AUTH_USER');
+
+                    if (state.isAuthenticated) {
+                        dispatch('GET_AUTH_USER');      
+                    }
+
                     console.log('THREAD(S): GET SUCCESSFUL');
                 })
                 .catch(error => {
@@ -81,7 +94,7 @@ export default {
             })
             .then(response => {
                 console.log(response);
-                commit('SET_AUTHENTICATED', app.$auth.isAuthenticated());
+                commit('SET_AUTHENTICATE', app.$auth.isAuthenticated());
                 app.$router.push('/');
             });
         },
@@ -98,20 +111,25 @@ export default {
                     console.log(error);
                 }); 
             },
-        GET_AUTH_USER ({commit}) {
-            return axios.get('api/me')
-            .then(response => {
-                commit('SET_USER', response.data);
-                console.log('USER DATA: GET SUCCESSFUL');
-            })
-            .catch(error => {
-                console.log(error);
-                console.log('USER DATA: GET FAILED');
-            })
+        GET_AUTH_USER ({commit, state}) {
+            if (state.user.name === null || !state.user.name) {
+                return axios.get('api/me')
+                .then(response => {
+                    commit('SET_USER', response.data);
+                    commit('SET_AUTHENTICATE', app.$auth.isAuthenticated());
+                    console.log('USER DATA: GET SUCCESSFUL');
+                })
+                .catch(error => {
+                    console.log(error);
+                    console.log('USER DATA: GET FAILED');
+                }) 
+            }
+
+            console.log('USER DATA ALREADY FETCHED');
         },
         POST_REPLY ({dispatch, state}, reply) {
             axios.post('/api/reply/' + state.thread.id, {
-                body: reply,
+                body: reply.body,
                 thread_id: state.thread.id,
             })
             .then(() => {
@@ -137,20 +155,21 @@ export default {
                 console.log('LOGOUT: FAILED');
             })
         },
-        CREATE_THREAD ({state}, thread) {
+        CREATE_THREAD ({dispatch}, thread) {
             return axios.post('api/thread', {
                 title: thread.title,
                 body: thread.body,
                 channelSlug: thread.channelSlug
             })
-            .then(response => {
+            .then(async response => {
                 console.log('CREATE THREAD: SUCCESSFUL');
+                await dispatch('GET_THREADS');
                 app.$router.push('/threads/' + response.data.category+ '/' + response.data.thread_id);
             })
             .catch(error => {
                 console.log(error);
                 console.log('CREATE THREAD: FAILED');
-            })
+            });
         },
         GET_CHANNELS ({commit}) {
             axios.get('/api/channels')
@@ -161,7 +180,7 @@ export default {
             .catch(error => {
                 console.log(error);
                 console.log('CHANNELS: GET FAILED');
-            })
-        }
+            });
+        },
     },
 }

@@ -155,6 +155,10 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     Login: function Login() {
       this.$store.dispatch('LOGIN_USER', this.user);
+
+      if (this.$route.params.routeBack) {
+        this.$router.go(-1);
+      }
     }
   }
 });

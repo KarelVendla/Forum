@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <form method="POST" class="form-group">
                         <div class="row justify-content-center">
-                        <textarea v-model="reply" name="body" id="body" cols="100" rows="5" placeholder="Write your reply here .."></textarea>
+                        <textarea v-model="reply.body" name="body" id="body" cols="100" rows="5" placeholder="Write your reply here .."></textarea>
                         </div>
 
                         <button type="submit" class="btn btn-primary" @click.prevent="PostReply()">
@@ -30,10 +30,10 @@
     export default {
         data() {
             return {
-                reply: ''
+                reply: {
+                    body: '',
+                }
             }
-        },
-        mounted() {
         },
         methods: {
             PostReply () {
